@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>A-Frame Starter Kit - Mini Planetarium</title>
+    <meta
+      name="description"
+      content="Build your own planetarium with A-frame"
+    />
+    <style>
+      video {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+
+    <!-- This turns our HTML into A-Frame! -->
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+  </head>
+
+  <body>
+    <video autoplay></video>
+
+    <a-scene>
+      <a-sphere
+        id="sun"
+        position="-13 2 10"
+        radius=".75"
+        color="red"
+      ></a-sphere>
+
+      <a-sphere
+        id="sun"
+        position="-13 2 -10"
+        radius=".5"
+        color="black"
+      ></a-sphere>
+
+      <a-box id="box" position="-1 2 -10" radius=".25" color="yellow"></a-box>
+      <a-box id="box" position="4 2 -2" radius=".25" color="brown"></a-box>
+      <a-sphere id="mars" position="8 2 -2" radius=".5" color="blue"></a-sphere>
+
+      <a-assets>
+        <a-asset-item
+          id="articuno"
+          src="./assets/articuno/scene.gltf"
+        ></a-asset-item>
+        <a-asset-item id="coke" src="./assets/coke/scene.gltf"></a-asset-item>
+        <a-asset-item
+          id="dragonite"
+          src="./assets/dragonite/scene.gltf"
+        ></a-asset-item>
+        <a-asset-item
+          id="magnemite"
+          src="./assets/magnemite/scene.gltf"
+        ></a-asset-item>
+      </a-assets>
+      <a-entity
+        id="magnemitegl"
+        animation-mixer
+        position="0 0.890 0.79"
+        scale="0.050 0.050 0.050"
+        gltf-model="#magnemite"
+      ></a-entity>
+      <a-entity
+        id="articunogl"
+        animation-mixer
+        position="0 0.890 -0.79"
+        scale="0.005 0.005 0.005"
+        gltf-model="#articuno"
+      ></a-entity>
+      <a-entity
+        id="cokegl"
+        animation-mixer
+        position="0.8 1.520 -0.79"
+        scale="0.001 0.001 0.001"
+        gltf-model="#coke"
+      ></a-entity>
+    </a-scene>
+    <script>
+      const constraints = {
+        video: true,
+        exact: "environment",
+        facingMode: "environment"
+      };
+
+      const video = document.querySelector("video");
+      navigator.mediaDevices
+        .getUserMedia({
+          video: { facingMode: "environment", height: 500, width: 500 }
+        })
+        .then(function(stream) {
+          window.stream = stream;
+          video.srcObject = stream;
+        });
+    </script>
+  </body>
+</html>
