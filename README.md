@@ -24,9 +24,11 @@ Make webcam work on ios.
 
 Add real assets. Remove POC assets.
 
-Move where Shawn and Matt say to move the assets.
+Move assets where Shawn and Matt say to move the assets.
 
 Add click events to each asset.
+
+Add new assets to the scene on click of a button.
 
 Display overaly on click.
 
@@ -34,3 +36,7 @@ Add loader from
 https://github.com/donmccurdy/aframe-extras
 
 https://github.com/donmccurdy/aframe-extras/tree/master/src/loaders
+
+Get 4 square version of AR.js working on Jason's phone.
+
+Add min / max / scale logic (via the api) so near places are not super big and take up the whole screen.
