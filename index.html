@@ -1,97 +1,96 @@
 <html>
-  <head>
-    <title>A-Frame Starter Kit - Mini Planetarium</title>
-    <meta
-      name="description"
-      content="Build your own planetarium with A-frame"
-    />
-    <style>
-      video {
-        width: 100vw;
-        height: 100vh;
-      }
-    </style>
 
-    <!-- This turns our HTML into A-Frame! -->
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-  </head>
+<head>
+  <title>A-Frame Starter Kit - Mini Planetariumc 2</title>
+  <meta name="description" content="Build your own planetarium with A-frame" />
+  <style>
+    video {
+      width: 100vw;
+      height: 100vh;
+    }
 
-  <body>
-    <video autoplay></video>
+    .ar-controls {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
-    <a-scene>
-      <a-sphere
-        id="sun"
-        position="-13 2 10"
-        radius=".75"
-        color="red"
-      ></a-sphere>
+    .ar-controls img {
+      width: 100%;
+    }
 
-      <a-sphere
-        id="sun"
-        position="-13 2 -10"
-        radius=".5"
-        color="black"
-      ></a-sphere>
+    #cokeg1{
+      display: none;
+    }
 
-      <a-box id="box" position="-1 2 -10" radius=".25" color="yellow"></a-box>
-      <a-box id="box" position="4 2 -2" radius=".25" color="brown"></a-box>
-      <a-sphere id="mars" position="8 2 -2" radius=".5" color="blue"></a-sphere>
+  </style>
 
-      <a-assets>
-        <a-asset-item
-          id="articuno"
-          src="./assets/articuno/scene.gltf"
-        ></a-asset-item>
-        <a-asset-item id="coke" src="./assets/coke/scene.gltf"></a-asset-item>
-        <a-asset-item
-          id="dragonite"
-          src="./assets/dragonite/scene.gltf"
-        ></a-asset-item>
-        <a-asset-item
-          id="magnemite"
-          src="./assets/magnemite/scene.gltf"
-        ></a-asset-item>
-      </a-assets>
-      <a-entity
-        id="magnemitegl"
-        animation-mixer
-        position="0 0.890 0.79"
-        scale="0.050 0.050 0.050"
-        gltf-model="#magnemite"
-      ></a-entity>
-      <a-entity
-        id="articunogl"
-        animation-mixer
-        position="0 0.890 -0.79"
-        scale="0.005 0.005 0.005"
-        gltf-model="#articuno"
-      ></a-entity>
-      <a-entity
-        id="cokegl"
-        animation-mixer
-        position="0.8 1.520 -0.79"
-        scale="0.001 0.001 0.001"
-        gltf-model="#coke"
-      ></a-entity>
-    </a-scene>
-    <script>
-      const constraints = {
-        video: true,
-        exact: "environment",
-        facingMode: "environment"
-      };
+  <!-- This turns our HTML into A-Frame! -->
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+  <script src="script.js"></script>
+</head>
 
-      const video = document.querySelector("video");
-      navigator.mediaDevices
-        .getUserMedia({
-          video: { facingMode: "environment", height: 500, width: 500 }
-        })
-        .then(function(stream) {
-          window.stream = stream;
-          video.srcObject = stream;
-        });
-    </script>
-  </body>
+<body>
+  <video autoplay muted playsinline></video>
+  <div class="ar-controls" onclick="dropIcon()" style="position: absolute; z-index: 1000; cursor: pointer;">
+    <img alt="ar-controls" src="images/ARcontrols.png" />
+  </div>
+
+
+  <a-scene cursor="rayOrigin: mouse">
+
+    <a-sphere id="sun" position="-13 2 10" radius=".75" color="red"></a-sphere>
+    <a-sphere id="sun" position="-13 -6 -20" radius=".5" color="black"></a-sphere>
+
+    <a-assets>
+      <a-asset-item id="articuno" src="./assets/articuno/scene.gltf"></a-asset-item>
+      <a-asset-item id="coke" src="./assets/coke/scene.gltf"></a-asset-item>
+      <a-asset-item id="dragonite" src="./assets/dragonite/scene.gltf"></a-asset-item>
+      <a-asset-item id="magnemite" src="./assets/magnemite/scene.gltf"></a-asset-item>
+    </a-assets>
+    <!--center x,y,z  -->
+    <a-entity id="cokeg1" animation-mixer visible="false"  position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+      onclick="showOverlay()"></a-entity>
+    <!-- Left  -->
+    <a-entity id="cokeg2" animation-mixer position="-1.8 1.20 -1.2" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+      onclick="showOverlay()"></a-entity>
+    <!-- right -->
+      <a-entity id="cokeg3" animation-mixer position="1.8 0.52 -1.9" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+      onclick="showOverlay()"></a-entity>
+  </a-scene>
+
+
+  <script>
+    const constraints = {
+      video: true,
+      exact: "environment",
+      facingMode: "environment"
+    };
+
+    const video = document.querySelector("video");
+    navigator.mediaDevices
+      .getUserMedia({
+        video: { facingMode: "environment", height: 500, width: 900 }
+      })
+      .then(function (stream) {
+        window.stream = stream;
+        video.srcObject = stream;
+      });
+
+    function showOverlay() {
+      console.log("show overlay")
+    }
+
+    function dropIcon() {
+      document.getElementById("cokeg1").object3D.visible = true;
+    }
+
+
+  </script>
+
+
+</body>
+
 </html>
