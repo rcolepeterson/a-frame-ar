@@ -3,94 +3,13 @@
 <head>
   <title>Coke AR Demo</title>
   <meta name="description" content="Build your own planetarium with A-frame" />
-  <style>
-    /* A-frame styles */
-    video {
-      width: 100vw;
-      height: 100vh;
-    }
 
-    .ar-controls {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .ar-controls img {
-      width: 100%;
-    }
-
-    #cokeg1 {
-      display: none;
-    }
-
-    /* Modal styles */
-
-    .modal {
-      display: none;
-      position: fixed;
-      padding-top: 50px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgb(0, 0, 0);
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 3000;
-      /* -webkit-animation-name: animatetop;
-      -webkit-animation-duration: 0.4s;
-      animation-name: animatetop; */
-    }
-
-    .modal-content {
-      border-radius: 10px;
-      position: relative;
-      background-color: white;
-      padding: 20px;
-      margin: auto;
-      margin-bottom: 20px;
-      width: 85%;
-      text-align: center;
-    }
-
-    .close-btn {
-      float: right;
-      color: lightgray;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    @-webkit-keyframes animatetop {
-      from {
-        top: -300px;
-        opacity: 0
-      }
-
-      to {
-        top: 0;
-        opacity: 1
-      }
-    }
-
-    @keyframes animatetop {
-      from {
-        top: -300px;
-        opacity: 0
-      }
-
-      to {
-        top: 0;
-        opacity: 1
-      }
-    }
-  </style>
-
+  <link rel="stylesheet" href="styles.css">
+  </link>
   <!-- This turns our HTML into A-Frame! -->
   <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-  <script src="script.js"></script>
+
 </head>
 
 <body>
@@ -105,23 +24,63 @@
   </div>
 
   <!-- Modal content -->
-  <button id="modal-btn"> click me, I make a modal</button>
   <div class="modal">
+
+
     <!-- Content for step by step to drop a bottle -->
+
+    <!-- Choose a smile -->
     <div id="modal-content-1" class="modal-content">
+      <img src="images/smileiconcreate.png" class="smile-icon">
       <p>Choose a smile to share</p>
       <!-- add smile section dropdown here -->
-      <span class="select-smile-btn">Select smile</span>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Smiles</button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#home">Call an old friend</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
     </div>
 
+    <!-- Pick a background -->
     <div id="modal-content-2" class="modal-content">
       <p>Pick a Background</p>
       <!-- Add background selection here -->
-      <span class="select-background-btn">Select background</span>
+      <div class="img-holder">
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/72785149_164518464639846_6076961238489168278_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=106&amp;oh=764cecb3bcd8acef9328b30e3278e31f&amp;oe=5E837788">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/73546073_154934612398816_7092229561713833436_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=104&amp;oh=139da426f55d1d6b8a4c163923e8806b&amp;oe=5E7D85F4">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/74404575_454242185216951_7699009114606573134_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=111&amp;oh=3cbf262bbadbbffa50a0e0e017696e33&amp;oe=5E7EBFEC">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/71830169_733433727124265_2167271084980578508_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=105&amp;oh=ab2c4a33ef33b55cbbff01c0417c1438&amp;oe=5E76FBB3">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/70586385_470297003568578_8759225228199721916_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=102&amp;oh=406a02a0a6adf5f66d4ae4d08edcdea4&amp;oe=5E7AFB64">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/69600099_193480318356287_8728351371455166165_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=111&amp;oh=a4f94bbbe4fb343e7c87dcdd978e326e&amp;oe=5E83164B">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/71189783_132636471361030_7109242556326741930_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=110&amp;oh=1d0080907980611fd94d74534a0502ef&amp;oe=5E7F585C">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/64972078_347214885965608_1097340034321170971_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=104&amp;oh=a67d08dcb54e5b9fa1a7aeb83b3b8e5c&amp;oe=5E696C33">
+        </div>
+        <div class="insta-image"><img alt="insta"
+            src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/64929696_451133779049412_5641126171660367580_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&amp;_nc_cat=100&amp;oh=abdcf192dd1715cef0c0e515179fd77e&amp;oe=5E724670">
+        </div>
+      </div>
     </div>
 
     <!-- Button to create your drop - on click shows preview -->
-    <div id="create-drop-btn" class="modal-content">
+    <div id="create-drop-btn" class="modal-content modal-small">
       <p>Create your drop</p>
     </div>
 
@@ -159,137 +118,19 @@
     <!-- <a-entity id="clickCatch" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
     onclick="aFrameClickCatch()"></a-entity> --> -->
 
-    <a-entity id="cokeg1" visible="false" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-    ></a-entity>
+    <a-entity id="cokeg1" visible="false" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001"
+      gltf-model="#dragonite"></a-entity>
     <!-- Left  -->
-    <a-entity id="cokeg2" animation-mixer position="-1.8 1.20 -1.2" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      ></a-entity>
+    <a-entity id="cokeg2" animation-mixer position="-1.8 1.20 -1.2" scale="0.001 0.001 0.001" gltf-model="#dragonite">
+    </a-entity>
     <!-- right -->
-    <a-entity id="cokeg3" animation-mixer position="1.8 0.52 -1.9" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      ></a-entity>
+    <a-entity id="cokeg3" animation-mixer position="1.8 0.52 -1.9" scale="0.001 0.001 0.001" gltf-model="#dragonite">
+    </a-entity>
   </a-scene>
 
 
-  <script>
-    const constraints = {
-      video: true,
-      exact: "environment",
-      facingMode: "environment"
-    };
 
-    //video set up
-    const video = document.querySelector("video");
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { facingMode: "environment", height: 500, width: 900 }
-      })
-      .then(function (stream) {
-        window.stream = stream;
-        video.srcObject = stream;
-      });
-
-    //Drop coke bottle in to sceen
-    function dropIcon() {
-      document.getElementById("cokeg1").object3D.visible = true;
-    }
-
-    function aFrameClickCatch() {
-      console.log("test element clicked");
-    }
-
-
-
-
-    function ShowIconContent() {
-      console.log("A-frame element clicked");
-      //populate divs with content
-
-      //show modal with divs
-      showModal();
-      bottleContent.style.display = "block";
-      bottleShareBtn.style.display = "block";
-    }
-
-    function showModal() {
-      modal.style.display = "block";
-      arControls.style.display = "none";
-      //hide all modals when resetting the experience
-      var divsToHide = document.getElementsByClassName("modal-content");
-      for (var i = 0; i < divsToHide.length; i++) {
-        divsToHide[i].style.display = "none";
-      }
-
-    }
-
-    function closeModal() {
-      modal.style.display = "none";
-      arControls.style.display = "block";
-    }
-
-
-    // Modal content
-    let arControls = document.querySelector(".ar-controls");
-    let modalBtn = document.getElementById("modal-btn");
-    let modal = document.querySelector(".modal");
-    let closeBtn = document.querySelector(".close-btn");
-    let modalContent1 = document.getElementById("modal-content-1");
-    let modalContent2 = document.getElementById("modal-content-2");
-    let createDropBtn = document.getElementById("create-drop-btn");
-    let bottleDropBtn = document.getElementById("bottle-drop-btn");
-    let bottleShareBtn = document.getElementById("bottle-share-btn");
-    let bottleContent = document.getElementById("bottle-content");
-
-    //Click to start drop experience
-    arControls.onclick = function () {
-      showModal();
-      modalContent1.style.display = "block";
-    }
-
-    //Step 1 -Select smile
-    modalContent1.onclick = function () {
-      //set smile value and display background modal
-      modalContent2.style.display = "block";
-    }
-
-    //Step 2 - Select background
-    modalContent2.onclick = function () {
-      //Select background and show create drop button
-      createDropBtn.style.display = "block";
-    }
-
-    //Step 3 - Create your drop - takes you to the preview screen
-    createDropBtn.onclick = function () {
-      //Hide create modals
-      modalContent1.style.display = "none";
-      modalContent2.style.display = "none";
-      createDropBtn.style.display = "none";
-      //show preview modals 
-      bottleDropBtn.style.display = "block";
-      bottleContent.style.display = "block";
-    }
-
-    //Step 4 - Drop your bottle - shows bottle on screen 
-    bottleDropBtn.onclick = function () {
-      //hide modal 
-      closeModal();
-      //drop bottles
-      dropIcon();
-    }
-
-    //close modal
-    closeBtn.onclick = function () {
-      closeModal();
-    }
-
-    //close modal
-    window.onclick = function (e) {
-      if (e.target == modal) {
-        closeModal();
-      }
-    }
-
-  </script>
-
+  <script src="script.js"></script>
 
 </body>
 
