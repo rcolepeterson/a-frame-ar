@@ -62,17 +62,6 @@
       cursor: pointer;
     }
 
-    /* #modal-content,
-    #modal-content-2,
-    #create-drop-btn,
-    #bottle-content-preview,
-    #bottle-content,
-    #bottle-share-btn {
-      display: none;
-    } */
-
-
-
     @-webkit-keyframes animatetop {
       from {
         top: -300px;
@@ -120,7 +109,6 @@
   <div class="modal">
     <!-- Content for step by step to drop a bottle -->
     <div id="modal-content-1" class="modal-content">
-      <span class="close-btn">&times;</span>
       <p>Choose a smile to share</p>
       <!-- add smile section dropdown here -->
       <span class="select-smile-btn">Select smile</span>
@@ -137,17 +125,17 @@
       <p>Create your drop</p>
     </div>
 
-    <!-- Preview modals  -->
-    <div id="bottle-content-preview" class="modal-content">
-      <span class="close-btn">&times;</span>
-      <p>Bottle content - preview screen</p>
-    </div>
-
-
-    <!-- Coke bottle click content - Displays when you click a bottle-->
+    <!-- Coke bottle click content - Displays when you click a bottle or preview-->
     <div id="bottle-content" class="modal-content">
+      <span class="close-btn">&times;</span>
       <p>Bottle content</p>
     </div>
+
+    <div id="bottle-drop-btn" class="modal-content">
+      <p>Make a Drop to earn 5</p>
+      <p>Drop a Smile</p>
+    </div>
+
     <div id="bottle-share-btn" class="modal-content">
       <p>Share to earn 5</p>
       <p>Spread the Smile</p>
@@ -167,15 +155,20 @@
       <a-asset-item id="magnemite" src="./assets/magnemite/scene.gltf"></a-asset-item>
     </a-assets>
     <!--center x,y,z  -->
-    <a-entity id="cokeg1" animation-mixer visible="false" position="0 1.5 -.79" scale="0.001 0.001 0.001"
-      gltf-model="#dragonite" onclick="showOverlay()"></a-entity>
+
+    <!-- <a-entity id="clickCatch" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+    onclick="aFrameClickCatch()"></a-entity> --> -->
+
+    <a-entity id="cokeg1" visible="false" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+    ></a-entity>
     <!-- Left  -->
     <a-entity id="cokeg2" animation-mixer position="-1.8 1.20 -1.2" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      onclick="showOverlay()"></a-entity>
+      ></a-entity>
     <!-- right -->
     <a-entity id="cokeg3" animation-mixer position="1.8 0.52 -1.9" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      onclick="showOverlay()"></a-entity>
+      ></a-entity>
   </a-scene>
+
 
   <script>
     const constraints = {
@@ -184,6 +177,7 @@
       facingMode: "environment"
     };
 
+    //video set up
     const video = document.querySelector("video");
     navigator.mediaDevices
       .getUserMedia({
@@ -194,30 +188,29 @@
         video.srcObject = stream;
       });
 
-    function showOverlay() {
-      console.log("show overlay")
-    }
-
+    //Drop coke bottle in to sceen
     function dropIcon() {
       document.getElementById("cokeg1").object3D.visible = true;
     }
 
+    function aFrameClickCatch() {
+      console.log("test element clicked");
+    }
 
-    // Modal scripts
 
 
-    let arControls = document.querySelector(".ar-controls")
-    let modalBtn = document.getElementById("modal-btn")
-    let modal = document.querySelector(".modal")
-    let closeBtn = document.querySelector(".close-btn")
-    let modalContent1 = document.getElementById("modal-content-1")
-    let modalContent2 = document.getElementById("modal-content-2")
-    let createDropBtn = document.getElementById("create-drop-btn")
 
-    
+    function ShowIconContent() {
+      console.log("A-frame element clicked");
+      //populate divs with content
 
-    //Click to start experience
-    arControls.onclick = function () {
+      //show modal with divs
+      showModal();
+      bottleContent.style.display = "block";
+      bottleShareBtn.style.display = "block";
+    }
+
+    function showModal() {
       modal.style.display = "block";
       arControls.style.display = "none";
       //hide all modals when resetting the experience
@@ -225,32 +218,73 @@
       for (var i = 0; i < divsToHide.length; i++) {
         divsToHide[i].style.display = "none";
       }
-      modalContent1.style.display = "block"
+
     }
 
-    //Select smile
+    function closeModal() {
+      modal.style.display = "none";
+      arControls.style.display = "block";
+    }
+
+
+    // Modal content
+    let arControls = document.querySelector(".ar-controls");
+    let modalBtn = document.getElementById("modal-btn");
+    let modal = document.querySelector(".modal");
+    let closeBtn = document.querySelector(".close-btn");
+    let modalContent1 = document.getElementById("modal-content-1");
+    let modalContent2 = document.getElementById("modal-content-2");
+    let createDropBtn = document.getElementById("create-drop-btn");
+    let bottleDropBtn = document.getElementById("bottle-drop-btn");
+    let bottleShareBtn = document.getElementById("bottle-share-btn");
+    let bottleContent = document.getElementById("bottle-content");
+
+    //Click to start drop experience
+    arControls.onclick = function () {
+      showModal();
+      modalContent1.style.display = "block";
+    }
+
+    //Step 1 -Select smile
     modalContent1.onclick = function () {
-          modalContent2.style.display = "block"
+      //set smile value and display background modal
+      modalContent2.style.display = "block";
     }
 
-    //Select background
+    //Step 2 - Select background
     modalContent2.onclick = function () {
-      createDropBtn.style.display = "block"
+      //Select background and show create drop button
+      createDropBtn.style.display = "block";
     }
 
+    //Step 3 - Create your drop - takes you to the preview screen
+    createDropBtn.onclick = function () {
+      //Hide create modals
+      modalContent1.style.display = "none";
+      modalContent2.style.display = "none";
+      createDropBtn.style.display = "none";
+      //show preview modals 
+      bottleDropBtn.style.display = "block";
+      bottleContent.style.display = "block";
+    }
 
+    //Step 4 - Drop your bottle - shows bottle on screen 
+    bottleDropBtn.onclick = function () {
+      //hide modal 
+      closeModal();
+      //drop bottles
+      dropIcon();
+    }
 
-
-    //close experience
+    //close modal
     closeBtn.onclick = function () {
-      modal.style.display = "none"
-      arControls.style.display = "block"
+      closeModal();
     }
 
+    //close modal
     window.onclick = function (e) {
       if (e.target == modal) {
-        modalContent.style.display = "none"
-        arControls.style.display = "block"
+        closeModal();
       }
     }
 
