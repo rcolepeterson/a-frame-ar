@@ -23,7 +23,7 @@ const constraints = {
 const video = document.querySelector("video");
 navigator.mediaDevices
     .getUserMedia({
-        video: { facingMode: "environment", height: 500, width: 900 }
+        video: { facingMode: "environment", height: 700, width: 500 }
     })
     .then(function (stream) {
         window.stream = stream;
