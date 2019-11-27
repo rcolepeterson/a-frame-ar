@@ -79,7 +79,7 @@ function closeModal() {
 let arControls = document.querySelector(".ar-controls");
 let modalBtn = document.getElementById("modal-btn");
 let modal = document.querySelector(".modal");
-let closeBtn = document.querySelector(".close-btn");
+let closeBtn = document.querySelector(".modal-content .close-btn");
 let modalContent1 = document.getElementById("modal-content-1");
 let modalContent2 = document.getElementById("modal-content-2");
 let createDropBtn = document.getElementById("create-drop-btn");
@@ -134,11 +134,7 @@ closeBtn.onclick = function () {
 }
 
 //close modal
-window.onclick = function (e) {
-    if (e.target == modal) {
-        closeModal();
-    }
-}
+
 //#endregion
 
 
@@ -161,6 +157,10 @@ function myFunction() {
           openDropdown.classList.remove('show');
         }
       }
+    }
+    //Close modal
+    if (event.target == modal) {
+        closeModal();
     }
   }
 
