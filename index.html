@@ -1,9 +1,10 @@
 <html>
 
 <head>
-  <title>A-Frame Starter Kit - Mini Planetariumc 2</title>
+  <title>Coke AR Demo</title>
   <meta name="description" content="Build your own planetarium with A-frame" />
   <style>
+    /* A-frame styles */
     video {
       width: 100vw;
       height: 100vh;
@@ -20,10 +21,70 @@
       width: 100%;
     }
 
-    #cokeg1{
+    #cokeg1 {
       display: none;
     }
 
+    /* Modal styles */
+
+    .modal {
+      display: none;
+      position: fixed;
+      padding-top: 50px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      /* -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop; */
+    }
+
+    .modal-content {
+      border-radius: 10px;
+      position: relative;
+      background-color: white;
+      padding: 20px;
+      margin: auto;
+      margin-bottom: 20px;
+      width: 85%;
+      text-align: center;
+    }
+
+    .close-btn {
+      float: right;
+      color: lightgray;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @-webkit-keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0
+      }
+
+      to {
+        top: 0;
+        opacity: 1
+      }
+    }
+
+    @keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0
+      }
+
+      to {
+        top: 0;
+        opacity: 1
+      }
+    }
   </style>
 
   <!-- This turns our HTML into A-Frame! -->
@@ -34,16 +95,59 @@
 
 <body>
   <video autoplay muted playsinline></video>
-  <div class="ar-controls" onclick="dropIcon()" style="position: absolute; z-index: 1000; cursor: pointer;">
+  <!-- Drop controls visible except when modal is showing -->
+  <!-- <div class="ar-controls" onclick="dropIcon()" style="position: absolute; z-index: 1000; cursor: pointer;">
+    <img alt="ar-controls" src="images/ARcontrols.png" />
+  </div> -->
+
+  <div class="ar-controls" style="position: absolute; z-index: 1000; cursor: pointer;">
     <img alt="ar-controls" src="images/ARcontrols.png" />
   </div>
 
+  <!-- Modal content -->
+  <button id="modal-btn"> click me, I make a modal</button>
+  <div class="modal">
+    <!-- Content for step by step to drop a bottle -->
+    <div id="modal-content-1" class="modal-content">
+      <p>Choose a smile to share</p>
+      <!-- add smile section dropdown here -->
+      <span class="select-smile-btn">Select smile</span>
+    </div>
 
+    <div id="modal-content-2" class="modal-content">
+      <p>Pick a Background</p>
+      <!-- Add background selection here -->
+      <span class="select-background-btn">Select background</span>
+    </div>
+
+    <!-- Button to create your drop - on click shows preview -->
+    <div id="create-drop-btn" class="modal-content">
+      <p>Create your drop</p>
+    </div>
+
+    <!-- Coke bottle click content - Displays when you click a bottle or preview-->
+    <div id="bottle-content" class="modal-content">
+      <span class="close-btn">&times;</span>
+      <p>Bottle content</p>
+    </div>
+
+    <div id="bottle-drop-btn" class="modal-content">
+      <p>Make a Drop to earn 5</p>
+      <p>Drop a Smile</p>
+    </div>
+
+    <div id="bottle-share-btn" class="modal-content">
+      <p>Share to earn 5</p>
+      <p>Spread the Smile</p>
+    </div>
+
+  </div>
+
+
+  <!-- A-frame content -->
   <a-scene cursor="rayOrigin: mouse">
-
     <a-sphere id="sun" position="-13 2 10" radius=".75" color="red"></a-sphere>
     <a-sphere id="sun" position="-13 -6 -20" radius=".5" color="black"></a-sphere>
-
     <a-assets>
       <a-asset-item id="articuno" src="./assets/articuno/scene.gltf"></a-asset-item>
       <a-asset-item id="coke" src="./assets/coke/scene.gltf"></a-asset-item>
@@ -51,14 +155,18 @@
       <a-asset-item id="magnemite" src="./assets/magnemite/scene.gltf"></a-asset-item>
     </a-assets>
     <!--center x,y,z  -->
-    <a-entity id="cokeg1" animation-mixer visible="false"  position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      onclick="showOverlay()"></a-entity>
+
+    <!-- <a-entity id="clickCatch" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+    onclick="aFrameClickCatch()"></a-entity> --> -->
+
+    <a-entity id="cokeg1" visible="false" animation-mixer position="0 1.5 -.79" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+    ></a-entity>
     <!-- Left  -->
     <a-entity id="cokeg2" animation-mixer position="-1.8 1.20 -1.2" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      onclick="showOverlay()"></a-entity>
+      ></a-entity>
     <!-- right -->
-      <a-entity id="cokeg3" animation-mixer position="1.8 0.52 -1.9" scale="0.001 0.001 0.001" gltf-model="#dragonite"
-      onclick="showOverlay()"></a-entity>
+    <a-entity id="cokeg3" animation-mixer position="1.8 0.52 -1.9" scale="0.001 0.001 0.001" gltf-model="#dragonite"
+      ></a-entity>
   </a-scene>
 
 
@@ -69,6 +177,7 @@
       facingMode: "environment"
     };
 
+    //video set up
     const video = document.querySelector("video");
     navigator.mediaDevices
       .getUserMedia({
@@ -79,14 +188,105 @@
         video.srcObject = stream;
       });
 
-    function showOverlay() {
-      console.log("show overlay")
-    }
-
+    //Drop coke bottle in to sceen
     function dropIcon() {
       document.getElementById("cokeg1").object3D.visible = true;
     }
 
+    function aFrameClickCatch() {
+      console.log("test element clicked");
+    }
+
+
+
+
+    function ShowIconContent() {
+      console.log("A-frame element clicked");
+      //populate divs with content
+
+      //show modal with divs
+      showModal();
+      bottleContent.style.display = "block";
+      bottleShareBtn.style.display = "block";
+    }
+
+    function showModal() {
+      modal.style.display = "block";
+      arControls.style.display = "none";
+      //hide all modals when resetting the experience
+      var divsToHide = document.getElementsByClassName("modal-content");
+      for (var i = 0; i < divsToHide.length; i++) {
+        divsToHide[i].style.display = "none";
+      }
+
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+      arControls.style.display = "block";
+    }
+
+
+    // Modal content
+    let arControls = document.querySelector(".ar-controls");
+    let modalBtn = document.getElementById("modal-btn");
+    let modal = document.querySelector(".modal");
+    let closeBtn = document.querySelector(".close-btn");
+    let modalContent1 = document.getElementById("modal-content-1");
+    let modalContent2 = document.getElementById("modal-content-2");
+    let createDropBtn = document.getElementById("create-drop-btn");
+    let bottleDropBtn = document.getElementById("bottle-drop-btn");
+    let bottleShareBtn = document.getElementById("bottle-share-btn");
+    let bottleContent = document.getElementById("bottle-content");
+
+    //Click to start drop experience
+    arControls.onclick = function () {
+      showModal();
+      modalContent1.style.display = "block";
+    }
+
+    //Step 1 -Select smile
+    modalContent1.onclick = function () {
+      //set smile value and display background modal
+      modalContent2.style.display = "block";
+    }
+
+    //Step 2 - Select background
+    modalContent2.onclick = function () {
+      //Select background and show create drop button
+      createDropBtn.style.display = "block";
+    }
+
+    //Step 3 - Create your drop - takes you to the preview screen
+    createDropBtn.onclick = function () {
+      //Hide create modals
+      modalContent1.style.display = "none";
+      modalContent2.style.display = "none";
+      createDropBtn.style.display = "none";
+      //show preview modals 
+      bottleDropBtn.style.display = "block";
+      bottleContent.style.display = "block";
+    }
+
+    //Step 4 - Drop your bottle - shows bottle on screen 
+    bottleDropBtn.onclick = function () {
+      //hide modal 
+      closeModal();
+      //drop bottles
+      dropIcon();
+    }
+
+    //close modal
+    closeBtn.onclick = function () {
+      closeModal();
+    }
+
+    //close modal
+    window.onclick = function (e) {
+      if (e.target == modal) {
+        closeModal();
+      }
+    }
 
   </script>
 
