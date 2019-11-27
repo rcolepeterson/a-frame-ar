@@ -265,6 +265,7 @@ header .MuiTouchRipple-root {
   text-align: center;
   height:40px;
   position: relative;
+  z-index: 999;
 }
 
 .sub-head p {
@@ -276,7 +277,11 @@ header .MuiTouchRipple-root {
   position: absolute;
   right: 10px;
   top:4px;
-  color:white
+  color:white;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
   

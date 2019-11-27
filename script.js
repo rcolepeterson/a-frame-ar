@@ -165,3 +165,12 @@ function myFunction() {
   }
 
   //#endregion
+
+
+  // close sub-header
+
+  function closeSubHeader() {
+    document.querySelector(".sub-head").style.display = 'none'
+  }
+
+  document.querySelector(".sub-head").addEventListener("click", closeSubHeader);
