@@ -187,4 +187,25 @@ to {
     margin: 12px;
 }
 
+.sub-head {
+  background-color:#d03835;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  height:40px;
+  position: relative;
+}
+
+.sub-head p {
+  margin-top:0;
+  padding:10px;
+}
+
+.sub-head .close-btn {
+  position: absolute;
+  right: 10px;
+  top:4px;
+  color:white
+}
+
   
